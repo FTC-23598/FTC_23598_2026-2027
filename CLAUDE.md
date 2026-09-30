@@ -20,7 +20,7 @@
 - FTC SDK 12.0.0. Pedro Pathing 3 (com.pedropathing:revhub 3.0.1, tuning 1.0.1).
   Check build.dependencies.gradle for current versions.
 - Pedro 3 is a full rewrite, and most examples online are Pedro 1 or 2.
-  Check reference/pedro-docs/ before answering any Pedro question.
+  Check reference/pedro-docs/content/ before answering any Pedro question.
 - These are Pedro 2 patterns. Do not suggest them unless the Pedro 3 docs show them:
   `new Path(new BezierLine(...))`, `follower.pathBuilder()`,
   `setLinearHeadingInterpolation(...)`, `Constants.createFollower(...)`,
@@ -66,6 +66,9 @@
 - Never add, commit, push, merge, rebase, reset, checkout, switch, restore,
   stash, or clean. Phil handles all git actions.
 
-## Reference folder (local only, not in git)
-- reference/pedro-docs/: copy of the official Pedro docs (includes Ivy if present)
-- reference/game-manual/: BIOBUZZ competition manual and team updates
+## Reference folder
+- reference/pedro-docs/: local clone of the official Pedro docs repo (not in git).
+  The doc pages are in reference/pedro-docs/content/. The rest is website code.
+- reference/game-manual/: the current BIOBUZZ manual only (not in git). Phil
+  replaces it with each Team Update. If it is missing or looks out of date, say so.
+- reference/README.md: quick links for students (committed to git).
