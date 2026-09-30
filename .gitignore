@@ -79,3 +79,6 @@ lint/generated/
 lint/outputs/
 lint/tmp/
 # lint/reports/
+
+# Local reference docs for Claude (Pedro docs, game manual)
+reference/

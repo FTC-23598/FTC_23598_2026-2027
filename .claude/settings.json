@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Edit(/questions/**)"
+    ],
+    "deny": [
+      "Edit(/TeamCode/**)",
+      "Edit(/FtcRobotController/**)",
+      "Edit(/reference/**)",
+      "Edit(/*.gradle)",
+      "Edit(/gradle.properties)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "Bash(git merge *)",
+      "Bash(git rebase *)",
+      "Bash(git reset *)",
+      "Bash(git checkout *)",
+      "Bash(git switch *)",
+      "Bash(git restore *)",
+      "Bash(git stash *)",
+      "Bash(git clean *)"
+    ]
+  }
+}
