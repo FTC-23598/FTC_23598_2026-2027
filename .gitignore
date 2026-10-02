@@ -83,3 +83,4 @@ lint/tmp/
 # Local reference docs for Claude (Pedro docs, game manual)
 reference/*
 !reference/README.md
+pedro-docs
