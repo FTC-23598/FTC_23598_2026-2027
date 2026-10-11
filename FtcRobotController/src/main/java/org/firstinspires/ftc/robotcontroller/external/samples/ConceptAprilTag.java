@@ -70,7 +70,7 @@ import java.util.List;
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list.
  */
 @TeleOp(name = "Concept: AprilTag", group = "Concept")
-@Disabled
+//@Disabled
 public class ConceptAprilTag extends LinearOpMode {
 
     private static final boolean USE_WEBCAM = true;  // true for webcam, false for phone camera
@@ -118,6 +118,7 @@ public class ConceptAprilTag extends LinearOpMode {
         telemetry.addData("DS preview on/off", "3 dots, Camera Stream");
         telemetry.addData(">", "Touch START to start OpMode");
         telemetry.update();
+        telemetry.addData("Test Info","This is a test" );
         waitForStart();
 
         while (opModeIsActive()) {
@@ -130,8 +131,10 @@ public class ConceptAprilTag extends LinearOpMode {
             // Save CPU resources; can resume streaming when needed.
             if (gamepad1.dpad_down) {
                 visionPortal.stopStreaming();
+                telemetry.addData("Streaming","You have stopped streaming" );
             } else if (gamepad1.dpad_up) {
                 visionPortal.resumeStreaming();
+                telemetry.addData("Streaming","You have started streaming" );
             }
 
             // Share the CPU.
