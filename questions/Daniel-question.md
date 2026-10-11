@@ -6,3 +6,5 @@ Date: 2026-10-11
 Status: Open
 
 Example Question.
+
+### Answer
