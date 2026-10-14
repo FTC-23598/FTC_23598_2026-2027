@@ -12,14 +12,13 @@ One file can hold several questions on the same topic.
 ## Template
 
 # Questions: (topic)
-Asked by: (first name)
-Date: (YYYY-MM-DD)
+Asked by: (Liam Patel)
+Date: (2026-10-14)
 
 ## Question 1
 Status: Open
 
-(Your question. Include the file name and what you already tried.)
-
+Should I just use RobotTeleopMecanumFieldRelativeDrive as my drivetrain code?
 ### Answer
 (Leave blank)
 
