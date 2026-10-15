@@ -82,4 +82,5 @@ lint/tmp/
 
 # Local reference docs for Claude (Pedro docs, game manual)
 !reference/README.md
+Starter_Bot
 pedro-docs
