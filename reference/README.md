@@ -13,3 +13,16 @@
 ## Hardware
 - [goBILDA Pinpoint odometry](https://www.gobilda.com/4-bar-odometry-pack-2-pods-1-pinpoint-computer/)
 - [REV Duo documentation](https://docs.revrobotics.com/docs/duo)
+
+  ## Android Studio: see questions/ and reference/ while in Android view
+  The Android view only shows code modules, so these folders are hidden there.                                                                                                                                                      
+  Bookmark them once on your laptop:
+    1. In the Project panel, change the dropdown at the top from **Android** to **Project**.
+    2. Right-click `questions` and choose **Bookmarks > Add to Bookmarks** (or select it and press F11).                                                                                                                              
+       Do the same for `reference`.
+    3. Switch the dropdown back to **Android**.
+    4. Open **View > Tool Windows > Bookmarks**. Your folders are there and you can expand them.
+    5. Optional: drag the Bookmarks panel under the Project panel so both stay open.
+
+  Bookmarks are saved on your own computer, so each laptop needs this setup once.                                                                                                                                                   
+                                                                                       
