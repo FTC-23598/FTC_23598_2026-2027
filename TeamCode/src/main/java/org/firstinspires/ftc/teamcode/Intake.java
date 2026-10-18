@@ -1,9 +1,8 @@
 package org.firstinspires.ftc.teamcode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-@TeleOp public class Intake {
+public class Intake {
     public DcMotor intakeMotor;
 
     public void init(HardwareMap hwMap) {
@@ -15,4 +14,5 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
     public void takeIn() { intakeMotor.setPower(1.0); }
     public void eject()  { intakeMotor.setPower(-1.0); }
     public void stop()   { intakeMotor.setPower(0.0); }
+    // Help with AI
 }
