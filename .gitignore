@@ -80,7 +80,6 @@ lint/outputs/
 lint/tmp/
 # lint/reports/
 
-# Local reference docs for Claude (Pedro docs, game manual)
-!reference/README.md
+# Large local reference folders, kept off GitHub (Pedro docs clone, starter bot)
 Starter_Bot
 pedro-docs

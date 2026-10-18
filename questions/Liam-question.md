@@ -72,4 +72,4 @@ Guiding question: in the sample, find the line that reads the robot's heading. I
 robot's heading reading were wrong by 90 degrees, what would happen when you push the
 stick forward?
 
-Answered by: Drafted with Claude, reviewed by Phil
+AI-assisted: Claude, drafted this answer (reviewed by Phil)

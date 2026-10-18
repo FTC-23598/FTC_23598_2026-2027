@@ -2,8 +2,8 @@
 Asked by: Example Student
 Date: 2026-09-30
 
-This is a sample file to show the format. Copy the template in README.md
-when you ask your own questions.
+This is a sample file to show the format. Copy this file when you ask your
+own questions, and replace the example text with yours.
 
 ## Question 1
 Status: Answered
@@ -58,7 +58,7 @@ Read more: [Game Manual 0: Finite State Machines](https://gm0.org/en/latest/docs
 Something to think about: what would happen if case 0 did not change `state`
 to 1?
 
-Answered by: Drafted with Claude, reviewed by Phil
+AI-assisted: Claude, drafted this answer (reviewed by Phil)
 
 ## Question 2
 Status: Answered
@@ -85,4 +85,4 @@ Read more: [Pedro Pathing: Follow States](https://pedropathing.com/docs/pathing/
 Something to think about: in the example from Question 1, which state would
 you put this check in if the robot drove somewhere before closing the claw?
 
-Answered by: Drafted with Claude, reviewed by Phil
+AI-assisted: Claude, drafted this answer (reviewed by Phil)

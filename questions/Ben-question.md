@@ -47,4 +47,4 @@ All of these links are also in `reference/README.md` in our repo.
 Guiding question: after reading one sample OpMode, can you point to the part that runs
 once at the start and the part that runs over and over?
 
-Answered by: Drafted with Claude, reviewed by Phil
+AI-assisted: Claude, drafted this answer (reviewed by Phil)

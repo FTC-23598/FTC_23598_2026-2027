@@ -9,7 +9,7 @@ What does "Final" mean during variable declaration? How about "Static"?
 
 ### Answer
 Both are **keywords** (words with a special meaning in Java) that you put in front of
-a variable when you declare it. In Java they are written in lowercase: `final` and `static`.
+a variable when you declare it. In Java, they are written in lowercase: `final` and `static`.
 
 **`final` means "this can only be set once."**
 After a `final` variable gets its value, you can't change it. If you try, Android Studio
@@ -58,7 +58,7 @@ and which ones need to change while the OpMode is running?
 
 More reading: [Oracle Java tutorial on class variables and constants](https://docs.oracle.com/javase/tutorial/java/javaOO/classvars.html)
 
-Answered by: Drafted with Claude, reviewed by Phil
+AI-assisted: Claude, drafted this answer (reviewed by Phil)
 
 
 ## Question 2
@@ -106,12 +106,12 @@ Where to look in our repo:
 Guiding question: if you removed the tag from a helper class, would anything on the
 Driver Station change? Why or why not?
 
-Answered by: Drafted with Claude, reviewed by Phil
+AI-assisted: Claude, drafted this answer (reviewed by Phil)
 
 ## Question 3
 Status: Answered
 
-Should we define the button inputs at the sub-class level, or at the higher level robot class? 
+Should we define the button inputs at the subclass level, or at the higher level robot class? 
 
 ### Answer
 Read the gamepad in the robot class (the OpMode). Keep the subsystems free of
@@ -150,4 +150,4 @@ Where to look in our repo:
 Guiding question: if the intake needed to run during autonomous, which version would
 let you do that without copying code: one that reads `gamepad1.a`, or one with `takeIn()`?
 
-Answered by: Drafted with Claude, reviewed by Phil
+AI-assisted: Claude, drafted this answer (reviewed by Phil)

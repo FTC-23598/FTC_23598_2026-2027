@@ -5,10 +5,21 @@
 - [Official Competition Manual chatbot](https://ftc-cmchatbot.firstinspires.org/)
 
 ## Programming
+- [Laptop setup guide (start here)](STUDENT_SETUP.md)
 - [FTC Docs](https://ftc-docs.firstinspires.org/en/latest/)
 - [Game Manual 0: Software](https://gm0.org/en/latest/docs/software/index.html)
 - [Pedro Pathing docs](https://pedropathing.com/docs/pathing)
 - [Ivy docs (later in the season)](https://pedropathing.com/docs/ivy)
+
+## Using AI
+We use AI sparingly and say where we used it. If AI helped with any code,
+put this comment right above that code:
+
+`// AI-assisted: <tool>, <what it helped with>`
+
+Example: `// AI-assisted: ChatGPT, explained how to reverse a motor`
+
+In notes and question files, use the same line without the `//`.
 
 ## Hardware
 - [goBILDA Pinpoint odometry](https://www.gobilda.com/4-bar-odometry-pack-2-pods-1-pinpoint-computer/)
