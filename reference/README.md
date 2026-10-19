@@ -12,8 +12,8 @@
 - [Ivy docs (later in the season)](https://pedropathing.com/docs/ivy)
 
 ## Using AI
-We use AI sparingly and say where we used it. If AI helped with any code,
-put this comment right above that code:
+We use AI sparingly and say where we used it. We also must be able to explain any code that we generated with AI. 
+If AI helped with any code, put this comment right above that code:
 
 `// AI-assisted: <tool>, <what it helped with>`
 
@@ -21,11 +21,26 @@ Example: `// AI-assisted: ChatGPT, explained how to reverse a motor`
 
 In notes and question files, use the same line without the `//`.
 
+## TODO comments (our task list)
+We track code tasks with comments in the code itself, not in a separate list.
+Put one on the line above the code it's about:
+
+`// TODO(name): what needs to be done`
+
+Example: `// TODO(Liam): slow the lift down near the top so it doesn't slam`
+
+- Use your first name so everyone knows who owns it. Use `team` if nobody owns it yet.
+- Say what needs doing. "fix this" doesn't tell anyone anything.
+- When you finish the task, delete the TODO comment.
+- To see every TODO in the project: View > Tool Windows > TODO in Android Studio.
+
+AI-assisted: Claude, drafted this section (reviewed by Phil)
+
 ## Hardware
 - [goBILDA Pinpoint odometry](https://www.gobilda.com/4-bar-odometry-pack-2-pods-1-pinpoint-computer/)
 - [REV Duo documentation](https://docs.revrobotics.com/docs/duo)
 
-  ## Android Studio: see questions/ and reference/ while in Android view
+## Android Studio: see questions/ and reference/ while in Android view
   The Android view only shows code modules, so these folders are hidden there.                                                                                                                                                      
   Bookmark them once on your laptop:
     1. In the Project panel, change the dropdown at the top from **Android** to **Project**.

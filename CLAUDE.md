@@ -57,6 +57,9 @@
 ## Tasks
 - The team tracks code tasks with TODO comments in Android Studio, written as
   `// TODO(name): description`.
+- Owner is the student's first name, or `team` if nobody owns it yet.
+- When a task is finished, the student deletes the TODO comment (no DONE markers).
+- The student version of these rules is in reference/README.md ("TODO comments").
 - Never create a TODO.md or any other task list file.
 - When a task comes up, suggest the file and spot where a student should add
   the TODO, and the wording.
