@@ -16,6 +16,6 @@ public class Conveyor {
 //    public void takeIn() { conveyorMotor.setPower(1.0); }
 //    public void eject()  { conveyorMotor.setPower(-1.0); }
 //    public void stop()   { conveyorMotor.setPower(0.0); }
-    public void allow() {conveyorMotor.setPower(1.0);}
-    public void deny() {conveyorMotor.setPower(0);}
+    public void allow() {conveyorServo.setPower(1.0);}
+    public void deny() {conveyorServo.setPower(0);}
 }
