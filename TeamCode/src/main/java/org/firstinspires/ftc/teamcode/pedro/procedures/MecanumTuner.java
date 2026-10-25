@@ -8,7 +8,7 @@ enum Direction {
     @DisplayName("Forward") FORWARD,
     @DisplayName("Reversed") REVERSE
 }
-
+// TODO: 1: Run this tuning procedure to determine the direction of the motors on our robot.
 public class MecanumTuner extends Procedure {
     public MecanumTuner() {
         super("Mecanum Tuner", "A procedure to find the directions of mecanum wheels.");
