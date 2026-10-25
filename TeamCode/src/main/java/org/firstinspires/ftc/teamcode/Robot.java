@@ -17,7 +17,7 @@ public class Robot extends LinearOpMode {
         telemetry.update();
 
         waitForStart();
-
+// TODO: Create a "Conveyor" helper class (similar to intake) that contains a motor that runs with the intake and a servo
         while (opModeIsActive()) {
 
             if (gamepad1.a) {
