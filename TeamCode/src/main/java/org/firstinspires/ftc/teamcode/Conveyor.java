@@ -11,11 +11,12 @@ public class Conveyor {
         conveyorServo = hwMap.get(CRServo.class, "conveyor_servo");
         conveyorMotor = hwMap.get(DcMotor.class, "intake_motor");
     }
-    public void setPowerMotor(double power) {conveyorMotor.setPower(power);}
+    //Specifically powers the Conveyor motor
+    public void setPowerConveyorMotor(double power) {conveyorMotor.setPower(power);}
 //    public void setPowerServo(double power) {conveyorServo.setPower(power);}
 //    public void takeIn() { conveyorMotor.setPower(1.0); }
 //    public void eject()  { conveyorMotor.setPower(-1.0); }
 //    public void stop()   { conveyorMotor.setPower(0.0); }
-    public void allow() {conveyorServo.setPower(1.0);}
+    public void allow() {conveyorServo.setPower(-1.0);}
     public void deny() {conveyorServo.setPower(0);}
 }
