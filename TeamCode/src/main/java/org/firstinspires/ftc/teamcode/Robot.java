@@ -35,11 +35,15 @@ public class Robot extends LinearOpMode {
                 Intake.stop();  // Stopped
             }
             */
-            //There is something called setPowerConveyorMotor which specifically powers the Conveyor motor.
-            //Since its power comes form IntakeConveyorPower, whenever there's power in that variable, the Conveyor motor gets that.
+            //A method called setPowerConveyorMotor powers the Conveyor motor.
+            //Since its power value comes form IntakeConveyorPower, whenever the intake runs, the Conveyor motor runs as well.
             Conveyor.setPowerConveyorMotor(IntakeConveyorPower); //TODO: Don't forget to add comments that describe what this method does! This is a clever little control algorithm that simplifies the code significantly, but describe it so you and others can understand what it does. (Done)
+            //TODO: Describe what this method does. The name alone isn't clear.
             if (gamepad1.x) {Conveyor.allow();}
             else{Conveyor.deny();}
+
+            //TODO: Make a launcher sub-class that has methods that control the speed of the flywheel
+            //TODO: Use the launcher class and the Conveyor class together to only allow the launch when the flywheel is up to speed.
 
 
             telemetry.update(); //TODO: Add telemetry that describe what the state of the robot is. For example, are we intaking or outtaking? Is the conveyor allowed to run, or no?
