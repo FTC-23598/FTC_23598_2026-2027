@@ -8,6 +8,7 @@ public class Robot extends LinearOpMode {
     Intake Intake = new Intake();
     Conveyor Conveyor = new Conveyor();
     Launcher Launcher = new Launcher();
+    DriveTrain DriveTrain = new DriveTrain();
 
     @Override
     public void runOpMode() {
@@ -40,32 +41,43 @@ public class Robot extends LinearOpMode {
             //When the right bumper is held down, you start to spinning the launcher up, if the right bumper isn't pressed, then it stops spinning up
             if (gamepad1.right_bumper) {
                 Launcher.setVelocityLauncherMotor(LAUNCHER_TARGET_VELOCITY);
-            }
-            else {
+            } else {
                 Launcher.setVelocityLauncherMotor(0);
             }
+
             //When the Launcher reaches the desired velocity, it uses the allow() method to let the balls shoot.
             //Because of our drum design, we'll also empty out the whole entire system by intaking the whole entire system
-            if (gamepad1.right_bumper && Launcher.GetVelocityLauncher() > LAUNCHER_MIN_VELOCITY){
+            if (gamepad1.right_bumper && Launcher.GetVelocityLauncher() > LAUNCHER_MIN_VELOCITY) {
                 Conveyor.allow();
                 Conveyor.setPowerConveyorMotor(1);
-            }
-            else{
+            } else {
                 Conveyor.deny();
                 Conveyor.setPowerConveyorMotor(0);
             }
-            //TODO: Don't forget to add comments that describe what this method does! This is a clever little control algorithm that simplifies the code significantly, but describe it so you and others can understand what it does. (Done)
-            //TODO: Describe what this method does. The name alone isn't clear.(Done)
-            //TODO: Make a launcher sub-class that has methods that control the speed of the flywheel (Done)
-            //TODO: Use the launcher class and the Conveyor class together to only allow the launch when the flywheel is up to speed. (Done)
-            //This shows the status of our robot
-            telemetry.addData("Intaking", IntakeConveyorPower > 0);
-            telemetry.addData("Outtaking", IntakeConveyorPower < 0);
-            telemetry.addData("Velocity", Launcher.GetVelocityLauncher());
-            telemetry.addData("ConveyorIntaking", IntakeConveyorPower > 0);
-            telemetry.addData("ConveyorOuttaking", IntakeConveyorPower < 0);
-            telemetry.update();
-            //TODO: Add telemetry that describe what the state of the robot is. For example, are we intaking or outtaking? Is the conveyor allowed to run, or no? (Done)
+            //Press a to reset yaw
+            if (gamepad1.a) {
+                DriveTrain.ResetTheYaw();
+            }
+            DriveTrain.driveFieldRelative(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
+        }
+        //TODO: Don't forget to add comments that describe what this method does! This is a clever little control algorithm that simplifies the code significantly, but describe it so you and others can understand what it does. (Done)
+        //TODO: Describe what this method does. The name alone isn't clear.(Done)
+        //TODO: Make a launcher sub-class that has methods that control the speed of the flywheel (Done)
+        //TODO: Use the launcher class and the Conveyor class together to only allow the launch when the flywheel is up to speed. (Done)
+        //This shows the status of our robot
+        telemetry.addData("Intaking", IntakeConveyorPower > 0);
+        telemetry.addData("Outtaking", IntakeConveyorPower < 0);
+        telemetry.addData("Velocity", Launcher.GetVelocityLauncher());
+        telemetry.addData("Conveyor Intaking", IntakeConveyorPower > 0);
+        telemetry.addData("Conveyor Outtaking", IntakeConveyorPower < 0);
+        telemetry.addLine("The left joystick sets the robot direction");
+        telemetry.addLine("Moving the right joystick left and right turns the robot");
+        telemetry.addLine("Press A to reset Yaw");
+        telemetry.addLine("Hold right bumper to shoot");
+        telemetry.addLine("Use right trigger to intake and feed balls into launcher");
+        telemetry.addLine("Use left trigger to outtake and spit balls out of conveyor");
+        telemetry.update();
+        //TODO: Add telemetry that describe what the state of the robot is. For example, are we intaking or outtaking? Is the conveyor allowed to run, or no? (Done)
             /*
             unused code
             if (gamepad1.a) {
@@ -76,6 +88,5 @@ public class Robot extends LinearOpMode {
                 Intake.stop();  // Stopped
             }
             */
-        }
     }
 }
