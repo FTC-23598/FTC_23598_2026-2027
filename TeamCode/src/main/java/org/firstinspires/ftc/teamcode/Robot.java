@@ -21,6 +21,12 @@ public class Robot extends LinearOpMode {
         int LAUNCHER_TARGET_VELOCITY = 1250; // I don't know desired launch target (can be changed)
         //LAUNCHER_MIN_VELOCITY shows the least amount of velocity for shooting
         int LAUNCHER_MIN_VELOCITY = 1200; // I don't know desired launch target (can be changed)
+        //Last button state either true or false
+        boolean lastButtonState = false;
+        //Current button state either true or false
+        boolean currentButtonState = gamepad1.right_bumper;
+        //Decides if you should set launch or not
+        boolean setLaunch = false;
         //TODO: Don't forget to add comments that describe what this variable does! (Done)
         Conveyor.init(hardwareMap);
         Launcher.init(hardwareMap);
@@ -36,27 +42,29 @@ public class Robot extends LinearOpMode {
             We created a parameter that is inputted into the setPower method which will be outputted into the setPowerConveyorMotor.
             We made the parameter value IntakeConveyorPower which is outputted into setPowerConveyorMotor which is outputted into the motor.
              */
-            Conveyor.setPowerConveyorMotor(IntakeConveyorPower);
-            Intake.setPowerIntakeMotor(IntakeConveyorPower);
-            //When the right bumper is held down, you start to spinning the launcher up, if the right bumper isn't pressed, then it stops spinning up
-            if (gamepad1.right_bumper) {
+            //Toggle switch mechanisim incase you acidently press shooting button
+            if (currentButtonState && !lastButtonState){
+                setLaunch = !setLaunch;
+            }
+            //When the right bumper is pressed, you start to spinning the launcher up, if the right bumper isn't pressed or pressed again, then it stops spinning up
+            if (setLaunch) {
                 Launcher.setVelocityLauncherMotor(LAUNCHER_TARGET_VELOCITY);
             } else {
                 Launcher.setVelocityLauncherMotor(0);
             }
-
             //When the Launcher reaches the desired velocity, it uses the allow() method to let the balls shoot.
-            //Because of our drum design, we'll also empty out the whole entire system by intaking the whole entire system
-            if (gamepad1.right_bumper && Launcher.GetVelocityLauncher() > LAUNCHER_MIN_VELOCITY) {
+            //Because of our drum design, we'll also empty out the whole entire system by setting the conveyor motor power to 1 which feeds all balls into the conveyor.
+            if (gamepad1.b && Launcher.getVelocityLauncher() > LAUNCHER_MIN_VELOCITY) {
                 Conveyor.allow();
                 Conveyor.setPowerConveyorMotor(1);
             } else {
                 Conveyor.deny();
-                Conveyor.setPowerConveyorMotor(0);
+                Conveyor.setPowerConveyorMotor(IntakeConveyorPower);
+                Intake.setPowerIntakeMotor(IntakeConveyorPower);
             }
             //Press a to reset yaw
             if (gamepad1.a) {
-                DriveTrain.ResetTheYaw();
+                DriveTrain.resetTheYaw();
             }
             DriveTrain.driveFieldRelative(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
         }
@@ -67,7 +75,7 @@ public class Robot extends LinearOpMode {
         //This shows the status of our robot
         telemetry.addData("Intaking", IntakeConveyorPower > 0);
         telemetry.addData("Outtaking", IntakeConveyorPower < 0);
-        telemetry.addData("Velocity", Launcher.GetVelocityLauncher());
+        telemetry.addData("Velocity", Launcher.getVelocityLauncher());
         telemetry.addData("Conveyor Intaking", IntakeConveyorPower > 0);
         telemetry.addData("Conveyor Outtaking", IntakeConveyorPower < 0);
         telemetry.addLine("The left joystick sets the robot direction");
