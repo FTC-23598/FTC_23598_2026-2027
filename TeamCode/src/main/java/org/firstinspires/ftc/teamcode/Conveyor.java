@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.CRServo;
 public class Conveyor {
     public DcMotor conveyorMotor;
+    //CRServo is used specifically for servos
     public CRServo conveyorServo;
 
 
@@ -13,10 +14,14 @@ public class Conveyor {
     }
     //Specifically powers the Conveyor motor
     public void setPowerConveyorMotor(double power) {conveyorMotor.setPower(power);}
+
 //    public void setPowerServo(double power) {conveyorServo.setPower(power);}
 //    public void takeIn() { conveyorMotor.setPower(1.0); }
 //    public void eject()  { conveyorMotor.setPower(-1.0); }
 //    public void stop()   { conveyorMotor.setPower(0.0); }
+
+    //Contracts rod attached to allow balls [this is why the method is called allow()]
     public void allow() {conveyorServo.setPower(-1.0);} //TODO: Label what these methods do.
+    //Deny pushes the rod attached to servo to a height were the balls can go through
     public void deny() {conveyorServo.setPower(0);}
 }
