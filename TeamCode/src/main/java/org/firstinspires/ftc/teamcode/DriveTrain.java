@@ -107,7 +107,7 @@ public class DriveTrain {
         BL.setPower(maxSpeed * (BLPower / maxPower));
         BR.setPower(maxSpeed * (BRPower / maxPower));
     }
-    public void ResetTheYaw(){
+    public void resetTheYaw(){
         imu.resetYaw();
     }
     // ATTENTION THIS CODE WAS BORROWED FROM FIELDCENTRICDRIVE.JAVA AND FTC16072

@@ -11,5 +11,5 @@ public class Launcher {
     //Specifically sets velocity for the Launcher motor
     public void setVelocityLauncherMotor(double power) {LauncherMotor.setVelocity(power);}
     //Gets velocity for the Launcher motor
-    public double GetVelocityLauncher() {return LauncherMotor.getVelocity();}
+    public double getVelocityLauncher() {return LauncherMotor.getVelocity();}
 }
