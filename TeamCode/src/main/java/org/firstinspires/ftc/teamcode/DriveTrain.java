@@ -37,6 +37,8 @@ public class DriveTrain {
         // motors are opposite to the right ones.
         BL.setDirection(DcMotor.Direction.REVERSE);
         FL.setDirection(DcMotor.Direction.REVERSE);
+        FR.setDirection(DcMotor.Direction.FORWARD);
+        BR.setDirection(DcMotor.Direction.FORWARD);
         // This uses RUN_USING_ENCODER to be more accurate.   If you don't have the encoder
         // wires, you should remove these
         FL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);

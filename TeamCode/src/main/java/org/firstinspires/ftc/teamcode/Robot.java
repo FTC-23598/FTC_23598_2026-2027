@@ -5,6 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 @TeleOp(name = "Robot")
 public class Robot extends LinearOpMode {
 
+    // CONSTRUCTORS
+
     Intake Intake = new Intake();
     Conveyor Conveyor = new Conveyor();
     Launcher Launcher = new Launcher();
@@ -13,7 +15,8 @@ public class Robot extends LinearOpMode {
     @Override
     public void runOpMode() {
 
-        Intake.init(hardwareMap);
+        // VARIABLES
+
         // This variable uses both the triggers to intake, outtake, and move the pollen farther out or in.
         // The special thing about this is that you can control how much power you want to use since we use analog triggers.
         double IntakeConveyorPower = gamepad1.right_trigger - gamepad1.left_trigger;
@@ -27,14 +30,16 @@ public class Robot extends LinearOpMode {
         boolean currentButtonState = gamepad1.right_bumper;
         //Decides if you should set launch or not
         boolean setLaunch = false;
-        //TODO: Don't forget to add comments that describe what this variable does! (Done)
+
+        //INITIATION
+
+        Intake.init(hardwareMap);
         Conveyor.init(hardwareMap);
         Launcher.init(hardwareMap);
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
         waitForStart();
-// TODO: Create a "Conveyor" helper class (similar to intake) that contains a motor that runs with the intake and a servo (Done)
         while (opModeIsActive()) {
             /*
             Since our conveyor motor is not defined in this class, we have to make a specific method in the class which has the motor.
@@ -43,6 +48,9 @@ public class Robot extends LinearOpMode {
             We made the parameter value IntakeConveyorPower which is outputted into setPowerConveyorMotor which is outputted into the motor.
              */
             //Toggle switch mechanisim incase you acidently press shooting button
+
+            // LAUNCHING/CONVEYOR/INTAKE
+
             if (currentButtonState && !lastButtonState){
                 setLaunch = !setLaunch;
             }
@@ -62,16 +70,18 @@ public class Robot extends LinearOpMode {
                 Conveyor.setPowerConveyorMotor(IntakeConveyorPower);
                 Intake.setPowerIntakeMotor(IntakeConveyorPower);
             }
+
+            // DRIVETRAIN
+
             //Press a to reset yaw
             if (gamepad1.a) {
                 DriveTrain.resetTheYaw();
             }
             DriveTrain.driveFieldRelative(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
         }
-        //TODO: Don't forget to add comments that describe what this method does! This is a clever little control algorithm that simplifies the code significantly, but describe it so you and others can understand what it does. (Done)
-        //TODO: Describe what this method does. The name alone isn't clear.(Done)
-        //TODO: Make a launcher sub-class that has methods that control the speed of the flywheel (Done)
-        //TODO: Use the launcher class and the Conveyor class together to only allow the launch when the flywheel is up to speed. (Done)
+
+        // TELEMETRY
+
         //This shows the status of our robot
         telemetry.addData("Intaking", IntakeConveyorPower > 0);
         telemetry.addData("Outtaking", IntakeConveyorPower < 0);
@@ -85,16 +95,17 @@ public class Robot extends LinearOpMode {
         telemetry.addLine("Use right trigger to intake and feed balls into launcher");
         telemetry.addLine("Use left trigger to outtake and spit balls out of conveyor");
         telemetry.update();
+
+        // TODOS (DONE)
+
+        //TODO: Don't forget to add comments that describe what this method does! This is a clever little control algorithm that simplifies the code significantly, but describe it so you and others can understand what it does. (Done)
+        //TODO: Describe what this method does. The name alone isn't clear.(Done)
+        //TODO: Make a launcher sub-class that has methods that control the speed of the flywheel (Done)
+        //TODO: Use the launcher class and the Conveyor class together to only allow the launch when the flywheel is up to speed. (Done)
+        //TODO: Don't forget to add comments that describe what this variable does! (Done)
+        //TODO: Create a "Conveyor" helper class (similar to intake) that contains a motor that runs with the intake and a servo (Done)
         //TODO: Add telemetry that describe what the state of the robot is. For example, are we intaking or outtaking? Is the conveyor allowed to run, or no? (Done)
-            /*
-            unused code
-            if (gamepad1.a) {
-                Intake.takeIn();  // Intaking
-            } else if (gamepad1.b) {
-                Intake.eject(); // Outtaking
-            } else {
-                Intake.stop();  // Stopped
-            }
-            */
+
+        // TODOS (INCOMPLETE)
     }
 }
