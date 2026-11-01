@@ -20,6 +20,7 @@ public class Robot extends LinearOpMode {
         //This variable shows the desired velocity when shooting
         int launcherTargetVelocity = 1250; // I don't know desired launch target (can be changed)
         //This variable shows the least amount of velocity for shooting
+        //TODO: List what units these velocities are in. You may need to do some research on the motor that is being used to find out.
         int launcherMinVelocity = 1200; // I don't know desired launch target (can be changed)
         //Last button state either true or false
         boolean lastButtonState = false;
@@ -95,6 +96,8 @@ public class Robot extends LinearOpMode {
         telemetry.addData("Velocity", Launcher.getVelocityLauncher());
         telemetry.addData("Conveyor Intaking", intakeConveyorPowerValue > 0);
         telemetry.addData("Conveyor Outtaking", intakeConveyorPowerValue < 0);
+
+        //On-screen instructions
         telemetry.addLine("The left joystick sets the robot direction");
         telemetry.addLine("Moving the right joystick left and right turns the robot");
         telemetry.addLine("Press A to reset Yaw");

@@ -51,7 +51,7 @@ public class DriveTrain {
                 RevHubOrientationOnRobot.LogoFacingDirection.UP;
         RevHubOrientationOnRobot.UsbFacingDirection usbDirection =
                 RevHubOrientationOnRobot.UsbFacingDirection.FORWARD;
-
+        //TODO: Update the rev hub orientation above to be accurate for the robot. We may want to use the pinpoint instead of the rev hub.
 
         RevHubOrientationOnRobot orientationOnRobot = new
                 RevHubOrientationOnRobot(logoDirection, usbDirection);

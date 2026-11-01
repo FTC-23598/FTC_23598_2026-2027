@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.CRServo;
 public class Conveyor {
     public DcMotor conveyorMotor;
-    //CRServo is used specifically for servos
+    //CRServo is used specifically for Continuous Rotation Servos
     public CRServo conveyorServo;
 
 
