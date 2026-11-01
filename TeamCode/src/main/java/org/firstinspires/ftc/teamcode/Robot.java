@@ -18,10 +18,10 @@ public class Robot extends LinearOpMode {
         // VARIABLES
 
         //This variable shows the desired velocity when shooting
-        int launcherTargetVelocity = 1250; // I don't know desired launch target (can be changed)
+        int launcherTargetVelocity = (1250/28) * 60; // I don't know desired launch target (can be changed). in RPM
         //This variable shows the least amount of velocity for shooting
         //TODO: List what units these velocities are in. You may need to do some research on the motor that is being used to find out.
-        int launcherMinVelocity = 1200; // I don't know desired launch target (can be changed)
+        int launcherMinVelocity = (1200/28) * 60; // I don't know desired launch target (can be changed). In RPM
         //Last button state either true or false
         boolean lastButtonState = false;
         //Decides if you should set launch or not
@@ -29,7 +29,7 @@ public class Robot extends LinearOpMode {
         //Finds value of IntakeConveyorPower
         double intakeConveyorPowerValue = gamepad1.right_trigger - gamepad1.left_trigger;
 
-        //INITIATION
+        //INITIALIZATION
 
         Intake.init(hardwareMap);
         Conveyor.init(hardwareMap);
@@ -93,7 +93,7 @@ public class Robot extends LinearOpMode {
         //This shows the status of our robot
         telemetry.addData("Intaking", intakeConveyorPowerValue > 0);
         telemetry.addData("Outtaking", intakeConveyorPowerValue < 0);
-        telemetry.addData("Velocity", Launcher.getVelocityLauncher());
+        telemetry.addData("Launcher RPM", Launcher.getVelocityLauncher());
         telemetry.addData("Conveyor Intaking", intakeConveyorPowerValue > 0);
         telemetry.addData("Conveyor Outtaking", intakeConveyorPowerValue < 0);
 
