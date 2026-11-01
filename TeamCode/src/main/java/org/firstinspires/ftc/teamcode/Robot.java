@@ -17,11 +17,10 @@ public class Robot extends LinearOpMode {
 
         // VARIABLES
 
-        //This variable shows the desired velocity when shooting
-        int launcherTargetVelocity = (1250/28) * 60; // I don't know desired launch target (can be changed). in RPM
-        //This variable shows the least amount of velocity for shooting
-        //TODO: List what units these velocities are in. You may need to do some research on the motor that is being used to find out.
-        int launcherMinVelocity = (1200/28) * 60; // I don't know desired launch target (can be changed). In RPM
+        //This variable shows the desired launch RPM when shooting
+        int launcherTargetVelocity = (1250/28) * 60; // I don't know desired launch target (can be changed).
+        //This variable shows the least amount of launch RPM for shooting
+        int launcherMinVelocity = (1200/28) * 60; // I don't know desired launch target (can be changed).
         //Last button state either true or false
         boolean lastButtonState = false;
         //Decides if you should set launch or not
@@ -116,7 +115,7 @@ public class Robot extends LinearOpMode {
         //TODO: Don't forget to add comments that describe what this variable does! (Done)
         //TODO: Create a "Conveyor" helper class (similar to intake) that contains a motor that runs with the intake and a servo (Done)
         //TODO: Add telemetry that describe what the state of the robot is. For example, are we intaking or outtaking? Is the conveyor allowed to run, or no? (Done)
-
+        //TODO: List what units these velocities are in. You may need to do some research on the motor that is being used to find out. (Done)
         // TODOS (INCOMPLETE)
     }
 }
