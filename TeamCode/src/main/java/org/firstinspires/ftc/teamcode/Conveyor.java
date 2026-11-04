@@ -16,7 +16,7 @@ public class Conveyor {
     public void setPowerConveyorMotor(double power) {conveyorMotor.setPower(power);}
 
     //Contracts rod attached to allow balls [this is why the method is called allow()]
-    public void allow() {conveyorServo.setPower(-1.0);} //TODO: Label what these methods do.
+    public void allow() {conveyorServo.setPower(-1.0);} //TODO: Label what these methods do. (Done)
     //Deny pushes the rod attached to servo to a height were the balls can go through
     public void deny() {conveyorServo.setPower(0);}
 }

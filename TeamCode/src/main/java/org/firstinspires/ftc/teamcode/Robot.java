@@ -116,6 +116,7 @@ public class Robot extends LinearOpMode {
         //TODO: Create a "Conveyor" helper class (similar to intake) that contains a motor that runs with the intake and a servo (Done)
         //TODO: Add telemetry that describe what the state of the robot is. For example, are we intaking or outtaking? Is the conveyor allowed to run, or no? (Done)
         //TODO: List what units these velocities are in. You may need to do some research on the motor that is being used to find out. (Done)
+
         // TODOS (INCOMPLETE)
     }
 }
