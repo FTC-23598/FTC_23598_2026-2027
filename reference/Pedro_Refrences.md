@@ -1,4 +1,4 @@
-# Pedro Pathing Refrences
+# Pedro Pathing References
 
 ## Tuning Videos
 Pedro Pathing:

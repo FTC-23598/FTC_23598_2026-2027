@@ -1,7 +1,10 @@
 package org.firstinspires.ftc.teamcode;
+import com.pedropathing.drivetrain.DrivePowers;
+import com.pedropathing.follower.Follower;
+import com.pedropathing.follower.ManualDrive;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-
+import org.firstinspires.ftc.teamcode.pedro.Constants;
 @TeleOp(name = "Robot")
 public class Robot extends LinearOpMode {
 
@@ -12,15 +15,15 @@ public class Robot extends LinearOpMode {
     Launcher Launcher = new Launcher();
     DriveTrain DriveTrain = new DriveTrain();
 
-    @Override
     public void runOpMode() {
 
+        Follower follower = Constants.create(hardwareMap);
         // VARIABLES
 
         //This variable shows the desired launch RPM when shooting
-        int launcherTargetVelocity = (1250/28) * 60; // I don't know desired launch target (can be changed).
+        double launcherTargetVelocity = (1250.0/28.0) * 60.0; // I don't know desired launch target (can be changed).
         //This variable shows the least amount of launch RPM for shooting
-        int launcherMinVelocity = (1200/28) * 60; // I don't know desired launch target (can be changed).
+        double launcherMinVelocity = (1200.0/28.0) * 60.0; // I don't know desired launch target (can be changed).
         //Last button state either true or false
         boolean lastButtonState = false;
         //Decides if you should set launch or not
@@ -33,8 +36,7 @@ public class Robot extends LinearOpMode {
         Intake.init(hardwareMap);
         Conveyor.init(hardwareMap);
         Launcher.init(hardwareMap);
-        telemetry.addData("Status", "Initialized");
-        telemetry.update();
+        DriveTrain.init(hardwareMap);
 
         waitForStart();
         while (opModeIsActive()) {
@@ -84,18 +86,26 @@ public class Robot extends LinearOpMode {
                 DriveTrain.resetTheYaw();
             }
             //-gamepad1.left_stick_y is used for forward and backward, gamepad1.left_stick_x is used for left and right, gamepad1.right_stick_x is used for rotating
-            DriveTrain.driveFieldRelative(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
+            assert follower != null;
+            DrivePowers powers = ManualDrive.fieldCentric(
+                    -gamepad1.left_stick_y,
+                    gamepad1.left_stick_x,
+                    gamepad1.right_stick_x,
+                    follower.pose().heading()
+            );
+            follower.manual(powers);
+            follower.update();
+            telemetry.addData("Intaking", intakeConveyorPowerValue > 0);
+            telemetry.addData("Outtaking", intakeConveyorPowerValue < 0);
+            telemetry.addData("Launcher RPM", Launcher.getVelocityLauncher());
+            telemetry.addData("Conveyor Intaking", intakeConveyorPowerValue > 0);
+            telemetry.addData("Conveyor Outtaking", intakeConveyorPowerValue < 0);
+            telemetry.update();
         }
 
         // TELEMETRY
 
         //This shows the status of our robot
-        telemetry.addData("Intaking", intakeConveyorPowerValue > 0);
-        telemetry.addData("Outtaking", intakeConveyorPowerValue < 0);
-        telemetry.addData("Launcher RPM", Launcher.getVelocityLauncher());
-        telemetry.addData("Conveyor Intaking", intakeConveyorPowerValue > 0);
-        telemetry.addData("Conveyor Outtaking", intakeConveyorPowerValue < 0);
-
         //On-screen instructions
         telemetry.addLine("The left joystick sets the robot direction");
         telemetry.addLine("Moving the right joystick left and right turns the robot");
@@ -104,8 +114,6 @@ public class Robot extends LinearOpMode {
         telemetry.addLine("Hold B to launch");
         telemetry.addLine("Use right trigger to intake and feed balls into launcher");
         telemetry.addLine("Use left trigger to outtake and spit balls out of conveyor");
-        telemetry.update();
-
         // TODOS (DONE)
 
         //TODO: Don't forget to add comments that describe what this method does! This is a clever little control algorithm that simplifies the code significantly, but describe it so you and others can understand what it does. (Done)

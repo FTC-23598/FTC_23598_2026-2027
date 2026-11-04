@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.IMU;
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 /*
  * This OpMode illustrates how to program your robot to drive field relative.  This means
@@ -58,6 +57,7 @@ public class DriveTrain {
         imu.initialize(new IMU.Parameters(orientationOnRobot));
     }
     // This routine drives the robot field relative
+    /*
     public void driveFieldRelative(double forward, double right, double rotate) {
         // First, convert direction being asked to drive to polar coordinates
         double theta = Math.atan2(forward, right);
@@ -113,4 +113,5 @@ public class DriveTrain {
         imu.resetYaw();
     }
     // ATTENTION THIS CODE WAS BORROWED FROM FIELDCENTRICDRIVE.JAVA AND FTC16072
+    */
 }
