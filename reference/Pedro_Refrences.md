@@ -7,5 +7,7 @@ Pedro Pathing:
 Coach Pratt:
 [How To Write FTC Auto Programs with PedroPathing](https://youtu.be/gdkefs_VL-w)
 
+Example repo using Pedro Pathing 3:
+[FTC 365 MOEbo-Sapiens Decode](https://github.com/MOEbo-Sapiens/MOEbo-Sapiens-Decode/tree/master/TeamCode/src/main/java/org/firstinspires/ftc/teamcode)
 
 
