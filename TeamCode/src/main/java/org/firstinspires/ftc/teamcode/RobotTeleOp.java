@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.pedro.Constants;
 @TeleOp(name = "RobotTeleOp", group = "Robot")
-public class Robot extends LinearOpMode {
+public class RobotTeleOp extends LinearOpMode {
 
     // CONSTRUCTORS
 
