@@ -114,6 +114,10 @@ public class DriveTrain {
     public void resetTheYaw(){
         imu.resetYaw();
     }
+    public void setPowerBLMotor(double power) {BL.setPower(power);}
+    public void setPowerFLMotor(double power) {FL.setPower(power);}
+    public void setPowerBRMotor(double power) {BR.setPower(power);}
+    public void setPowerFRMotor(double power) {FR.setPower(power);}
     // ATTENTION THIS CODE WAS BORROWED FROM FIELDCENTRICDRIVE.JAVA AND FTC16072
 
 }

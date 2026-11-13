@@ -5,7 +5,7 @@ import com.pedropathing.follower.ManualDrive;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.pedro.Constants;
-@TeleOp(name = "Robot")
+@TeleOp(name = "RobotTeleOp", group = "Robot")
 public class Robot extends LinearOpMode {
 
     // CONSTRUCTORS
@@ -21,9 +21,9 @@ public class Robot extends LinearOpMode {
         // VARIABLES
 
         //This variable shows the desired launch RPM when shooting
-        double launcherTargetVelocity = (1250.0/28.0) * 60.0; // I don't know desired launch target (can be changed).
+        double LAUNCHERTARGETVELOCITY = (1250.0/28.0) * 60.0; // I don't know desired launch target (can be changed).
         //This variable shows the least amount of launch RPM for shooting
-        double launcherMinVelocity = (1200.0/28.0) * 60.0; // I don't know desired launch target (can be changed).
+        double LAUNCHERMINVELOCITY = (1200.0/28.0) * 60.0; // I don't know desired launch target (can be changed).
         //Last button state either true or false
         boolean lastButtonState = false;
         //Decides if you should set launch or not
@@ -64,13 +64,13 @@ public class Robot extends LinearOpMode {
             lastButtonState = currentButtonState;
             //When the right bumper is pressed, you start to spinning the launcher up, if the right bumper isn't pressed or pressed again, then it stops spinning up
             if (setLaunch) {
-                Launcher.setVelocityLauncherMotor(launcherTargetVelocity);
+                Launcher.setVelocityLauncherMotor(LAUNCHERTARGETVELOCITY);
             } else {
                 Launcher.setVelocityLauncherMotor(0);
             }
             //When the Launcher reaches the desired velocity and the designated button is pressed, it uses the allow() method to let the balls shoot.
             //Because of our drum design, we'll also empty out the whole entire system by setting the conveyor motor power to 1 which feeds all balls into the conveyor.
-            if (gamepad1.b && Launcher.getVelocityLauncher() > launcherMinVelocity) {
+            if (gamepad1.b && Launcher.getVelocityLauncher() > LAUNCHERMINVELOCITY) {
                 Conveyor.allow();
                 Conveyor.setPowerConveyorMotor(1);
             } else {
