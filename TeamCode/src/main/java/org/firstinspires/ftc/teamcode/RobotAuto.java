@@ -63,9 +63,10 @@ import org.firstinspires.ftc.teamcode.pedro.Constants;
                 instant(() -> Conveyor.setPowerConveyorMotor(0)),
                 instant(() -> Conveyor.deny()),
 
+                follow(follower, IntakeOne()),
                 instant(() -> Intake.setPowerIntakeMotor(1.0)),
                 instant(() -> Conveyor.setPowerConveyorMotor(1.0)),
-                follow(follower, IntakeOne()),
+                waitMs(1500),
 
                 parallel(
                         instant(() -> Intake.setPowerIntakeMotor(0.0)),
