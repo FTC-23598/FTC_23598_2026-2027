@@ -10,6 +10,7 @@ import com.pedropathing.api.PoseFactory;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import static com.pedropathing.ivy.Scheduler.schedule;
+import static com.pedropathing.ivy.groups.Groups.parallel;
 import static com.pedropathing.ivy.groups.Groups.sequential;
 import static com.pedropathing.ivy.commands.Commands.*;
 import static com.pedropathing.ivy.pedro.PedroCommands.follow;
@@ -22,7 +23,6 @@ import org.firstinspires.ftc.teamcode.pedro.Constants;
 
     Launcher Launcher = new Launcher();
     Conveyor Conveyor = new Conveyor();
-    DriveTrain DriveTrain = new DriveTrain();
     Intake Intake = new Intake();
     //This variable shows the desired launch RPM when shooting
     double LAUNCHERTARGETVELOCITY = (1250.0/28.0) * 60.0; // I don't know desired launch target (can be changed).
@@ -38,12 +38,8 @@ import org.firstinspires.ftc.teamcode.pedro.Constants;
     private final Pose startPoseLaunchTwo = PFDeg.of(0, 0, 0); // Starting position LaunchTwo (Should be changed)
     private final Pose controlPoseLaunchTwo = PFDeg.of(0, 0, 0); // Point which you base the vertex of your curve on LaunchTwo (Should be changed)
     private final Pose endPoseLaunchTwo = PFDeg.of(0, 0, 0); // Starting position LaunchTwo (Should be changed)
-    private Pose StartPose = startPoseLaunchOne;
     private Path LaunchOne() { // This our first launching path
         return Paths.curve(startPoseLaunchOne, controlPoseLaunchOne, endPoseLaunchOne);
-    }
-    private Command switchPoseToIntakeOne(){
-        return instant(() -> StartPose = startPoseIntakeOne);
     }
     private Path LaunchTwo() { // This our second launching path
         return Paths.curve(startPoseLaunchTwo, controlPoseLaunchTwo, endPoseLaunchTwo);
@@ -51,64 +47,65 @@ import org.firstinspires.ftc.teamcode.pedro.Constants;
     private Path IntakeOne() { // This is our first intake path
         return Paths.curve(startPoseIntakeOne, controlPoseIntakeOne, endPoseIntakeOne);
     }
-    private Command switchPoseToLaunchTwo(){
-        return instant(() -> StartPose = startPoseLaunchTwo);
-    }
-    private Command Launching() { // This is how we launch
+    private Command AutoRoutine() {
         return sequential(
-                instant(() -> Launcher.setVelocityLauncherMotor(LAUNCHERTARGETVELOCITY)),
-                waitMs(3000),
+                parallel(
+                        instant(() -> Launcher.setVelocityLauncherMotor(LAUNCHERTARGETVELOCITY)),
+                        follow(follower, LaunchOne())
+                ),
+
                 instant(() -> Conveyor.allow()),
-                waitMs(2000),
-                instant(() -> Launcher.setVelocityLauncherMotor(0.0)),
-                instant(() -> Conveyor.deny())
-        );
-    }
-    private Command Intaking() { // This is how we intake
-        return sequential(
-                instant(() -> DriveTrain.setPowerBLMotor(0.5)),
-                instant(() -> DriveTrain.setPowerFLMotor(0.5)),
-                instant(() -> DriveTrain.setPowerBRMotor(0.5)),
-                instant(() -> DriveTrain.setPowerFRMotor(0.5)),
-                instant(() -> Intake.setPowerIntakeMotor(0.5)),
                 instant(() -> Conveyor.setPowerConveyorMotor(1)),
-                waitMs(5000),
-                instant(() -> DriveTrain.setPowerBLMotor(0)),
-                instant(() -> DriveTrain.setPowerFLMotor(0)),
-                instant(() -> DriveTrain.setPowerBRMotor(0)),
-                instant(() -> DriveTrain.setPowerFRMotor(0)),
-                instant(() -> Intake.setPowerIntakeMotor(0)),
-                instant(() -> Conveyor.setPowerConveyorMotor(0))
-        );
-    }
-    private Command AutoRoutine() { //This is our auto routine
-        return sequential(
-                follow(follower, LaunchOne()),
-                switchPoseToIntakeOne(),
-                Launching(),
+
+                waitMs(1500),
+
+                instant(() -> Launcher.setVelocityLauncherMotor(0.0)),
+                instant(() -> Conveyor.setPowerConveyorMotor(0)),
+                instant(() -> Conveyor.deny()),
+
+                instant(() -> Intake.setPowerIntakeMotor(1.0)),
+                instant(() -> Conveyor.setPowerConveyorMotor(1.0)),
                 follow(follower, IntakeOne()),
-                switchPoseToLaunchTwo(),
-                Intaking(),
-                follow(follower, LaunchTwo()),
-                Launching()
+
+                parallel(
+                        instant(() -> Intake.setPowerIntakeMotor(0.0)),
+                        instant(() -> Conveyor.setPowerConveyorMotor(0.0)),
+                        instant(() -> Launcher.setVelocityLauncherMotor(LAUNCHERTARGETVELOCITY)),
+                        follow(follower, LaunchTwo())
+                ),
+
+                instant(() -> Conveyor.allow()),
+                instant(() -> Conveyor.setPowerConveyorMotor(1)),
+
+                waitMs(1500),
+
+                instant(() -> Launcher.setVelocityLauncherMotor(0.0)),
+                instant(() -> Conveyor.setPowerConveyorMotor(0)),
+                instant(() -> Conveyor.deny())
         );
     }
 
     @Override public void init() { // Initialization
         Scheduler.reset();
         follower = Constants.create(hardwareMap); // Lets the follower use our motors
-        follower.setPose(StartPose);
+        follower.setPose(startPoseLaunchOne);
         follower.update();
         Launcher.init(hardwareMap);
-        DriveTrain.init(hardwareMap);
         Conveyor.init(hardwareMap);
         Intake.init(hardwareMap);
     }
-    public void start() { // Where we play our auto routine
+    @Override public void start() { // Where we play our auto routine
         schedule(AutoRoutine());
     }
     @Override public void loop() { // Where we constantly update and execute our code
         follower.update();
         Scheduler.execute();
+    }
+    @Override public void stop() {
+        Scheduler.reset();
+        Launcher.setVelocityLauncherMotor(0.0);
+        Intake.setPowerIntakeMotor(0.0);
+        Conveyor.setPowerConveyorMotor(0.0);
+        Conveyor.deny();
     }
 }

@@ -2,9 +2,11 @@ package org.firstinspires.ftc.teamcode;
 import com.pedropathing.drivetrain.DrivePowers;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.follower.ManualDrive;
+import com.pedropathing.math.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.pedro.Constants;
+import com.pedropathing.api.PoseFactory;
 @TeleOp(name = "RobotTeleOp", group = "Robot")
 public class RobotTeleOp extends LinearOpMode {
 
@@ -13,30 +15,40 @@ public class RobotTeleOp extends LinearOpMode {
     Intake Intake = new Intake();
     Conveyor Conveyor = new Conveyor();
     Launcher Launcher = new Launcher();
-    DriveTrain DriveTrain = new DriveTrain();
+    private final PoseFactory PFDeg = PoseFactory.degrees();
 
     public void runOpMode() {
 
         Follower follower = Constants.create(hardwareMap);
+        follower.setPose(PFDeg.of(0, 0, 0));
+        follower.update();
         // VARIABLES
 
         //This variable shows the desired launch RPM when shooting
-        double LAUNCHERTARGETVELOCITY = (1250.0/28.0) * 60.0; // I don't know desired launch target (can be changed).
+        double LAUNCHERTARGETVELOCITY = (1250.0 / 28.0) * 60.0; // I don't know desired launch target (can be changed).
         //This variable shows the least amount of launch RPM for shooting
-        double LAUNCHERMINVELOCITY = (1200.0/28.0) * 60.0; // I don't know desired launch target (can be changed).
+        double LAUNCHERMINVELOCITY = (1200.0 / 28.0) * 60.0; // I don't know desired launch target (can be changed).
         //Last button state either true or false
         boolean lastButtonState = false;
         //Decides if you should set launch or not
         boolean setLaunch = false;
         //Finds value of IntakeConveyorPower
-        double intakeConveyorPowerValue = gamepad1.right_trigger - gamepad1.left_trigger;
 
         //INITIALIZATION
 
         Intake.init(hardwareMap);
         Conveyor.init(hardwareMap);
         Launcher.init(hardwareMap);
-        DriveTrain.init(hardwareMap);
+
+        //This shows the status of our robot
+        //On-screen instructions
+        telemetry.addLine("The left joystick sets the robot direction");
+        telemetry.addLine("Moving the right joystick left and right turns the robot");
+        telemetry.addLine("Press A to reset Yaw");
+        telemetry.addLine("Press right bumper to prepare velocity and again to stop");
+        telemetry.addLine("Hold B to launch");
+        telemetry.addLine("Use right trigger to intake and feed balls into launcher");
+        telemetry.addLine("Use left trigger to outtake and spit balls out of conveyor");
 
         waitForStart();
         while (opModeIsActive()) {
@@ -58,7 +70,7 @@ public class RobotTeleOp extends LinearOpMode {
 
             // LAUNCHING/CONVEYOR/INTAKE
 
-            if (currentButtonState && !lastButtonState){
+            if (currentButtonState && !lastButtonState) {
                 setLaunch = !setLaunch;
             }
             lastButtonState = currentButtonState;
@@ -73,6 +85,7 @@ public class RobotTeleOp extends LinearOpMode {
             if (gamepad1.b && Launcher.getVelocityLauncher() > LAUNCHERMINVELOCITY) {
                 Conveyor.allow();
                 Conveyor.setPowerConveyorMotor(1);
+                Intake.setPowerIntakeMotor(0);
             } else {
                 Conveyor.deny();
                 Conveyor.setPowerConveyorMotor(intakeConveyorPower);
@@ -82,49 +95,44 @@ public class RobotTeleOp extends LinearOpMode {
             // DRIVETRAIN
 
             //Press a to reset yaw
-            if (gamepad1.a) {
-                DriveTrain.resetTheYaw();
+            Pose currentPose = follower.pose();
+            if (currentPose != null) {
+                if (gamepad1.a) {
+                    follower.setPose(PFDeg.of(currentPose.x(), currentPose.y(), 0));
+                    currentPose = follower.pose();
+                }
+                //-gamepad1.left_stick_y is used for forward and backward, gamepad1.left_stick_x is used for left and right, gamepad1.right_stick_x is used for rotating
+                if (currentPose != null) {
+                    DrivePowers powers = ManualDrive.fieldCentric(
+                            -gamepad1.left_stick_y,
+                            gamepad1.left_stick_x,
+                            gamepad1.right_stick_x,
+                            currentPose.heading()
+                    );
+                    follower.manual(powers);
+                    follower.manual(powers);
+                    follower.update();
+                    telemetry.addData("Intaking", intakeConveyorPower > 0);
+                    telemetry.addData("Outtaking", intakeConveyorPower < 0);
+                    telemetry.addData("Launcher RPM", Launcher.getVelocityLauncher());
+                    telemetry.addData("Ready to Shoot", Launcher.getVelocityLauncher() > LAUNCHERMINVELOCITY);
+                    telemetry.addData("Conveyor Intaking", intakeConveyorPower > 0);
+                    telemetry.addData("Conveyor Outtaking", intakeConveyorPower < 0);
+                    telemetry.update();
+                }
+                // TODOS (DONE)
+
+                //TODO: Don't forget to add comments that describe what this method does! This is a clever little control algorithm that simplifies the code significantly, but describe it so you and others can understand what it does. (Done)
+                //TODO: Describe what this method does. The name alone isn't clear.(Done)
+                //TODO: Make a launcher sub-class that has methods that control the speed of the flywheel (Done)
+                //TODO: Use the launcher class and the Conveyor class together to only allow the launch when the flywheel is up to speed. (Done)
+                //TODO: Don't forget to add comments that describe what this variable does! (Done)
+                //TODO: Create a "Conveyor" helper class (similar to intake) that contains a motor that runs with the intake and a servo (Done)
+                //TODO: Add telemetry that describe what the state of the robot is. For example, are we intaking or outtaking? Is the conveyor allowed to run, or no? (Done)
+                //TODO: List what units these velocities are in. You may need to do some research on the motor that is being used to find out. (Done)
+
+                // TODOS (INCOMPLETE)
             }
-            //-gamepad1.left_stick_y is used for forward and backward, gamepad1.left_stick_x is used for left and right, gamepad1.right_stick_x is used for rotating
-            assert follower != null;
-            DrivePowers powers = ManualDrive.fieldCentric(
-                    -gamepad1.left_stick_y,
-                    gamepad1.left_stick_x,
-                    gamepad1.right_stick_x,
-                    follower.pose().heading()
-            );
-            follower.manual(powers);
-            follower.update();
-            telemetry.addData("Intaking", intakeConveyorPowerValue > 0);
-            telemetry.addData("Outtaking", intakeConveyorPowerValue < 0);
-            telemetry.addData("Launcher RPM", Launcher.getVelocityLauncher());
-            telemetry.addData("Conveyor Intaking", intakeConveyorPowerValue > 0);
-            telemetry.addData("Conveyor Outtaking", intakeConveyorPowerValue < 0);
-            telemetry.update();
         }
-
-        // TELEMETRY
-
-        //This shows the status of our robot
-        //On-screen instructions
-        telemetry.addLine("The left joystick sets the robot direction");
-        telemetry.addLine("Moving the right joystick left and right turns the robot");
-        telemetry.addLine("Press A to reset Yaw");
-        telemetry.addLine("Press right bumper to prepare velocity and again to stop");
-        telemetry.addLine("Hold B to launch");
-        telemetry.addLine("Use right trigger to intake and feed balls into launcher");
-        telemetry.addLine("Use left trigger to outtake and spit balls out of conveyor");
-        // TODOS (DONE)
-
-        //TODO: Don't forget to add comments that describe what this method does! This is a clever little control algorithm that simplifies the code significantly, but describe it so you and others can understand what it does. (Done)
-        //TODO: Describe what this method does. The name alone isn't clear.(Done)
-        //TODO: Make a launcher sub-class that has methods that control the speed of the flywheel (Done)
-        //TODO: Use the launcher class and the Conveyor class together to only allow the launch when the flywheel is up to speed. (Done)
-        //TODO: Don't forget to add comments that describe what this variable does! (Done)
-        //TODO: Create a "Conveyor" helper class (similar to intake) that contains a motor that runs with the intake and a servo (Done)
-        //TODO: Add telemetry that describe what the state of the robot is. For example, are we intaking or outtaking? Is the conveyor allowed to run, or no? (Done)
-        //TODO: List what units these velocities are in. You may need to do some research on the motor that is being used to find out. (Done)
-
-        // TODOS (INCOMPLETE)
     }
 }
