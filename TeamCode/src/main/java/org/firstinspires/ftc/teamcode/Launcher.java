@@ -3,7 +3,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
-
 public class Launcher {
     //DcMotorEx lets us use setVelocity(), which sets the velocity to the desired amount.
     public DcMotorEx LauncherMotor;

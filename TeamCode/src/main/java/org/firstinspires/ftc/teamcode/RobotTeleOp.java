@@ -94,22 +94,17 @@ public class RobotTeleOp extends LinearOpMode {
 
             // DRIVETRAIN
 
-            //Press a to reset yaw
-            Pose currentPose = follower.pose();
-            if (currentPose != null) {
                 if (gamepad1.a) {
-                    follower.setPose(PFDeg.of(currentPose.x(), currentPose.y(), 0));
-                    currentPose = follower.pose();
+                    Pose currentPose = follower.pose();
+                    follower.setPose(new Pose(currentPose.x(), currentPose.y(), 0));
                 }
                 //-gamepad1.left_stick_y is used for forward and backward, gamepad1.left_stick_x is used for left and right, gamepad1.right_stick_x is used for rotating
-                if (currentPose != null) {
                     DrivePowers powers = ManualDrive.fieldCentric(
                             -gamepad1.left_stick_y,
                             gamepad1.left_stick_x,
                             gamepad1.right_stick_x,
-                            currentPose.heading()
+                            follower.pose().heading()
                     );
-                    follower.manual(powers);
                     follower.manual(powers);
                     follower.update();
                     telemetry.addData("Intaking", intakeConveyorPower > 0);
@@ -119,7 +114,6 @@ public class RobotTeleOp extends LinearOpMode {
                     telemetry.addData("Conveyor Intaking", intakeConveyorPower > 0);
                     telemetry.addData("Conveyor Outtaking", intakeConveyorPower < 0);
                     telemetry.update();
-                }
                 // TODOS (DONE)
 
                 //TODO: Don't forget to add comments that describe what this method does! This is a clever little control algorithm that simplifies the code significantly, but describe it so you and others can understand what it does. (Done)
@@ -132,7 +126,6 @@ public class RobotTeleOp extends LinearOpMode {
                 //TODO: List what units these velocities are in. You may need to do some research on the motor that is being used to find out. (Done)
 
                 // TODOS (INCOMPLETE)
-            }
         }
     }
 }

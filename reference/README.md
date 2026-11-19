@@ -50,5 +50,15 @@ AI-assisted: Claude, drafted this section (reviewed by Phil)
     4. Open **View > Tool Windows > Bookmarks**. Your folders are there and you can expand them.
     5. Optional: drag the Bookmarks panel under the Project panel so both stay open.
 
-  Bookmarks are saved on your own computer, so each laptop needs this setup once.                                                                                                                                                   
-                                                                                       
+  Bookmarks are saved on your own computer, so each laptop needs this setup once.         
+## Adb connection
+adb connect 192.168.43.1:5555
+
+..
+
+
+..
+
+..
+
+..
